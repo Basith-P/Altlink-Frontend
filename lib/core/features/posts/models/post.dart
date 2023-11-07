@@ -11,7 +11,8 @@ class Post with _$Post {
     required String content,
     String? imageUrl,
     Map<String, dynamic>? creator,
-    @JsonKey(name: 'created_at', includeToJson: false) DateTime? createdAt,
+    @JsonKey(includeToJson: false) DateTime? createdAt,
+    @JsonKey(includeToJson: false) DateTime? updatedAt,
   }) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

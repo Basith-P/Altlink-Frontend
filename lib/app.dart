@@ -12,6 +12,7 @@ class App extends StatelessWidget {
       title: 'Altlink',
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
+      scaffoldMessengerKey: scaffoldMessengerKey,
       theme: ThemeData(useMaterial3: true),
       onGenerateRoute: AppRouter.onGenerateRoute,
     );

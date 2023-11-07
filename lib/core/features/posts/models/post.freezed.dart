@@ -26,8 +26,10 @@ mixin _$Post {
   String get content => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   Map<String, dynamic>? get creator => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at', includeToJson: false)
+  @JsonKey(includeToJson: false)
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(includeToJson: false)
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +47,8 @@ abstract class $PostCopyWith<$Res> {
       String content,
       String? imageUrl,
       Map<String, dynamic>? creator,
-      @JsonKey(name: 'created_at', includeToJson: false) DateTime? createdAt});
+      @JsonKey(includeToJson: false) DateTime? createdAt,
+      @JsonKey(includeToJson: false) DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -67,6 +70,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? imageUrl = freezed,
     Object? creator = freezed,
     Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -93,6 +97,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -110,7 +118,8 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       String content,
       String? imageUrl,
       Map<String, dynamic>? creator,
-      @JsonKey(name: 'created_at', includeToJson: false) DateTime? createdAt});
+      @JsonKey(includeToJson: false) DateTime? createdAt,
+      @JsonKey(includeToJson: false) DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -129,6 +138,7 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? creator = freezed,
     Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$PostImpl(
       id: freezed == id
@@ -155,6 +165,10 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -168,7 +182,8 @@ class _$PostImpl implements _Post {
       required this.content,
       this.imageUrl,
       final Map<String, dynamic>? creator,
-      @JsonKey(name: 'created_at', includeToJson: false) this.createdAt})
+      @JsonKey(includeToJson: false) this.createdAt,
+      @JsonKey(includeToJson: false) this.updatedAt})
       : _creator = creator;
 
   factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
@@ -194,12 +209,15 @@ class _$PostImpl implements _Post {
   }
 
   @override
-  @JsonKey(name: 'created_at', includeToJson: false)
+  @JsonKey(includeToJson: false)
   final DateTime? createdAt;
+  @override
+  @JsonKey(includeToJson: false)
+  final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'Post(id: $id, title: $title, content: $content, imageUrl: $imageUrl, creator: $creator, createdAt: $createdAt)';
+    return 'Post(id: $id, title: $title, content: $content, imageUrl: $imageUrl, creator: $creator, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -214,13 +232,15 @@ class _$PostImpl implements _Post {
                 other.imageUrl == imageUrl) &&
             const DeepCollectionEquality().equals(other._creator, _creator) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, content, imageUrl,
-      const DeepCollectionEquality().hash(_creator), createdAt);
+      const DeepCollectionEquality().hash(_creator), createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -243,8 +263,8 @@ abstract class _Post implements Post {
       required final String content,
       final String? imageUrl,
       final Map<String, dynamic>? creator,
-      @JsonKey(name: 'created_at', includeToJson: false)
-      final DateTime? createdAt}) = _$PostImpl;
+      @JsonKey(includeToJson: false) final DateTime? createdAt,
+      @JsonKey(includeToJson: false) final DateTime? updatedAt}) = _$PostImpl;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$PostImpl.fromJson;
 
@@ -260,8 +280,11 @@ abstract class _Post implements Post {
   @override
   Map<String, dynamic>? get creator;
   @override
-  @JsonKey(name: 'created_at', includeToJson: false)
+  @JsonKey(includeToJson: false)
   DateTime? get createdAt;
+  @override
+  @JsonKey(includeToJson: false)
+  DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$PostImplCopyWith<_$PostImpl> get copyWith =>
