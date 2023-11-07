@@ -11,3 +11,9 @@ final getPostsProvider = FutureProvider<List<Post>>((ref) async {
   final postsController = ref.watch(postsControllerProvider.notifier);
   return await postsController.getPosts();
 });
+
+final getPostByIdProvider =
+    FutureProvider.family<Post, String>((ref, id) async {
+  final postsController = ref.watch(postsControllerProvider.notifier);
+  return await postsController.getPostById(id);
+});

@@ -1,4 +1,5 @@
 import 'package:altlink/core/constants/endpoints.dart';
+import 'package:altlink/core/constants/strings.dart';
 import 'package:altlink/core/utils/functions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
@@ -17,7 +18,7 @@ class PostsController extends StateNotifier<bool> {
     try {
       final res = await _dio.get(Endpoints.posts);
       debugPrint('res: $res');
-      final posts = res.data['posts'] as List<dynamic>;
+      final posts = res.data[Strings.posts] as List<dynamic>;
       return posts.map((e) => Post.fromJson(e)).toList();
     } catch (e) {
       debugPrint('e: $e');
@@ -33,12 +34,23 @@ class PostsController extends StateNotifier<bool> {
       isSuccess = true;
     } on DioException catch (e) {
       debugPrint('DioError - createPost: ${e.response}');
-      showSnackBar(e.response?.data['message'] ?? 'Something went wrong');
+      showSnackBar(e.response?.data[Strings.message] ?? 'Something went wrong');
     } catch (e) {
       debugPrint('Error - createPost: $e');
     } finally {
       state = false;
     }
     return isSuccess;
+  }
+
+  Future<Post> getPostById(String id) async {
+    try {
+      final res = await _dio.get('${Endpoints.posts}/$id');
+      debugPrint('res: $res');
+      return Post.fromJson(res.data[Strings.post]);
+    } catch (e) {
+      debugPrint('e: $e');
+      rethrow;
+    }
   }
 }

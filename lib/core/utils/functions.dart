@@ -10,7 +10,8 @@ void showSnackBar(String message) {
 
 final navState = navigatorKey.currentState;
 
-void push(String routeName) => navState!.pushNamed(routeName);
+void push(String routeName, {args}) =>
+    navState!.pushNamed(routeName, arguments: args);
 void replace(String routeName) => navState!.pushReplacementNamed(routeName);
 void pop() => navState!.pop();
 void replaceAll(String routeName) =>
