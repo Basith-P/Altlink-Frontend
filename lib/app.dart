@@ -8,13 +8,16 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Altlink',
-      debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
-      scaffoldMessengerKey: scaffoldMessengerKey,
-      theme: ThemeData(useMaterial3: true),
-      onGenerateRoute: AppRouter.onGenerateRoute,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: MaterialApp(
+        title: 'Altlink',
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
+        onGenerateRoute: AppRouter.onGenerateRoute,
+      ),
     );
   }
 }

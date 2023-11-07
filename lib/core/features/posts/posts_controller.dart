@@ -36,7 +36,7 @@ class PostsController extends StateNotifier<bool> {
       MediaType? mediaType;
       if (image != null) {
         const allowedMimeTypes = ['jpg', 'jpeg', 'png'];
-        final mimeType = image.path.split('.').last;
+        final mimeType = image.path.split('.').last.toLowerCase();
         if (allowedMimeTypes.contains(mimeType)) {
           mediaType = MediaType('image', mimeType);
         }
