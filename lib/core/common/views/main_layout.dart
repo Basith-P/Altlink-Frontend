@@ -1,4 +1,4 @@
-import 'package:altlink/core/features/feed/widgets/feed.dart';
+import 'package:altlink/core/features/posts/widgets/feed.dart';
 import 'package:flutter/material.dart';
 
 class MainLayout extends StatelessWidget {
