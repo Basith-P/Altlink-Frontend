@@ -1,4 +1,5 @@
 import 'package:altlink/core/common/views/main_layout.dart';
+import 'package:altlink/core/global_keys.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -10,6 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Altlink',
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       theme: ThemeData(useMaterial3: true),
       home: const MainLayout(),
     );
