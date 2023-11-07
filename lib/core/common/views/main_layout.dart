@@ -2,9 +2,7 @@ import 'package:altlink/core/features/posts/widgets/feed.dart';
 import 'package:flutter/material.dart';
 
 class MainLayout extends StatelessWidget {
-  const MainLayout({
-    super.key,
-  });
+  const MainLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
