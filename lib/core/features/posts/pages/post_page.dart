@@ -19,6 +19,15 @@ class PostPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
 
+    void deletePost() async {
+      final isSuccess =
+          await ref.read(postsControllerProvider.notifier).deletePost(id);
+      if (isSuccess) {
+        ref.refresh(getPostsProvider);
+        pop();
+      }
+    }
+
     return ref.watch(getPostByIdProvider(id)).when(
           data: (post) => Scaffold(
             appBar: AppBar(
@@ -26,6 +35,10 @@ class PostPage extends ConsumerWidget {
                 IconButton(
                   onPressed: () => push(CreatePostPage.routeName, args: post),
                   icon: const Icon(Icons.edit_rounded),
+                ),
+                IconButton(
+                  onPressed: deletePost,
+                  icon: const Icon(Icons.delete_rounded),
                 )
               ],
             ),

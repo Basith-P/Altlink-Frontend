@@ -84,4 +84,23 @@ class PostsController extends StateNotifier<bool> {
       rethrow;
     }
   }
+
+  Future<bool> deletePost(String id) async {
+    debugPrint('id: $id');
+    state = true;
+    bool isSuccess = false;
+    try {
+      final res = await _dio.delete('${Endpoints.posts}/$id');
+      debugPrint('res: $res');
+      isSuccess = true;
+    } on DioException catch (e) {
+      debugPrint('DioError - deletePost: ${e.response}');
+      showSnackBar(e.response?.data[Strings.message] ?? 'Something went wrong');
+    } catch (e) {
+      debugPrint('Error - deletePost: $e');
+    } finally {
+      state = false;
+    }
+    return isSuccess;
+  }
 }

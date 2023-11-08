@@ -51,8 +51,8 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
         isUpdate: isUpdate,
       );
       if (isSuccess) {
-        ref.refresh(getPostsProvider);
         if (isUpdate) ref.refresh(getPostByIdProvider(post.id!));
+        ref.refresh(getPostsProvider);
         pop();
       }
     }
