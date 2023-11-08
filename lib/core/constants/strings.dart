@@ -5,4 +5,6 @@ class Strings {
   static const title = 'title';
   static const content = 'content';
   static const image = 'image';
+  static const page = 'page';
+  static const perPage = 'perPage';
 }

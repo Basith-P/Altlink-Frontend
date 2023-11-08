@@ -18,9 +18,12 @@ class PostsController extends StateNotifier<bool> {
 
   final Dio _dio;
 
-  Future<List<Post>> getPosts() async {
+  Future<List<Post>> getPosts({int currentPage = 1, int perPage = 5}) async {
     try {
-      final res = await _dio.get(Endpoints.posts);
+      final res = await _dio.get(
+        Endpoints.posts,
+        queryParameters: {Strings.page: currentPage, Strings.perPage: perPage},
+      );
       final posts = res.data[Strings.posts] as List<dynamic>;
       return posts.map((e) => Post.fromJson(e)).toList();
     } catch (e) {

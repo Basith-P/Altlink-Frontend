@@ -25,7 +25,7 @@ class PostPage extends ConsumerWidget {
       final isSuccess =
           await ref.read(postsControllerProvider.notifier).deletePost(id);
       if (isSuccess) {
-        ref.refresh(getPostsProvider);
+        // ref.refresh(getPostsProvider);
         pop();
       }
     }
