@@ -7,6 +7,8 @@ import 'package:altlink/core/features/posts/providers.dart';
 import 'package:altlink/core/utils/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+// import 'package:timeago/timeago.dart' as timeago;
 
 class PostPage extends ConsumerWidget {
   const PostPage({super.key, required this.id});
@@ -25,6 +27,19 @@ class PostPage extends ConsumerWidget {
       if (isSuccess) {
         ref.refresh(getPostsProvider);
         pop();
+      }
+    }
+
+    String getPostTime(DateTime dateTime) {
+      final now = DateTime.now();
+      final difference = now.difference(dateTime);
+      final days = difference.inDays;
+
+      if (days > 0) {
+        return '${DateFormat.yMMMd().format(dateTime)} '
+            'at ${DateFormat.jm().format(dateTime)}';
+      } else {
+        return DateFormat.jm().format(dateTime);
       }
     }
 
@@ -49,15 +64,17 @@ class PostPage extends ConsumerWidget {
                 children: [
                   Text(post.title, style: textTheme.titleLarge),
                   gapH4,
-                  Text(post.createdAt.toString(), style: textTheme.bodySmall),
+                  // time and date
+                  Text(getPostTime(post.createdAt!),
+                      style: textTheme.bodySmall),
                   gapH12,
                   Text(post.content),
                 ],
               ),
             ),
           ),
-          error: (e, st) => const ErrorDisplay(),
-          loading: () => loaderPrimary,
+          error: (e, st) => const ErrorPage(),
+          loading: () => loaderPrimaryPage,
         );
   }
 }
