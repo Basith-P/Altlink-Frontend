@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CreatePostPage extends ConsumerStatefulWidget {
-  const CreatePostPage({super.key});
+  const CreatePostPage({super.key, this.post});
+
+  final Post? post;
 
   static const routeName = '/create-post';
 
@@ -28,8 +30,8 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
-    _titleController = TextEditingController();
-    _contentController = TextEditingController();
+    _titleController = TextEditingController(text: widget.post?.title);
+    _contentController = TextEditingController(text: widget.post?.content);
     _imageNotifier = ValueNotifier(null);
   }
 
@@ -37,13 +39,20 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
     if (_formKey.currentState?.validate() ?? false) {
       final postsController = ref.read(postsControllerProvider.notifier);
       final post = Post(
+        id: widget.post?.id,
         title: _titleController.text,
         content: _contentController.text,
       );
-      final isSuccess = await postsController.createPost(
-          post: post, image: _imageNotifier.value);
+      final isUpdate = widget.post != null;
+
+      final isSuccess = await postsController.createOrUpdatePost(
+        post: post,
+        image: _imageNotifier.value,
+        isUpdate: isUpdate,
+      );
       if (isSuccess) {
         ref.refresh(getPostsProvider);
+        if (isUpdate) ref.refresh(getPostByIdProvider(post.id!));
         pop();
       }
     }

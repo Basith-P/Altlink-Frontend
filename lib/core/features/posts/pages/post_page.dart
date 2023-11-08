@@ -2,7 +2,9 @@ import 'package:altlink/core/common/views/error_page.dart';
 import 'package:altlink/core/common/widgets/loaders.dart';
 import 'package:altlink/core/constants/gaps.dart';
 import 'package:altlink/core/constants/ui_constants.dart';
+import 'package:altlink/core/features/posts/pages/create_post_page.dart';
 import 'package:altlink/core/features/posts/providers.dart';
+import 'package:altlink/core/utils/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,10 +19,17 @@ class PostPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: ref.watch(getPostByIdProvider(id)).when(
-            data: (post) => SingleChildScrollView(
+    return ref.watch(getPostByIdProvider(id)).when(
+          data: (post) => Scaffold(
+            appBar: AppBar(
+              actions: [
+                IconButton(
+                  onPressed: () => push(CreatePostPage.routeName, args: post),
+                  icon: const Icon(Icons.edit_rounded),
+                )
+              ],
+            ),
+            body: SingleChildScrollView(
               padding: kPaddingMd,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -33,9 +42,9 @@ class PostPage extends ConsumerWidget {
                 ],
               ),
             ),
-            error: (e, st) => const ErrorDisplay(),
-            loading: () => loaderPrimary,
           ),
-    );
+          error: (e, st) => const ErrorDisplay(),
+          loading: () => loaderPrimary,
+        );
   }
 }

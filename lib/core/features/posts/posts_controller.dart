@@ -29,7 +29,11 @@ class PostsController extends StateNotifier<bool> {
     }
   }
 
-  Future<bool> createPost({required Post post, File? image}) async {
+  Future<bool> createOrUpdatePost({
+    required Post post,
+    File? image,
+    bool isUpdate = false,
+  }) async {
     state = true;
     bool isSuccess = false;
     try {
@@ -42,8 +46,7 @@ class PostsController extends StateNotifier<bool> {
         }
       }
       final formData = FormData.fromMap({
-        Strings.title: post.title,
-        Strings.content: post.content,
+        ...post.toJson(),
         Strings.image: image != null
             ? await MultipartFile.fromFile(
                 image.path,
@@ -52,11 +55,12 @@ class PostsController extends StateNotifier<bool> {
               )
             : null,
       });
-      final res = await _dio.post(
-        Endpoints.posts,
-        data: formData,
-        // options: Options(contentType: 'multipart/form-data'),
-      );
+      dynamic res;
+      if (!isUpdate) {
+        res = await _dio.post(Endpoints.posts, data: formData);
+      } else {
+        res = await _dio.put('${Endpoints.posts}/${post.id}', data: formData);
+      }
       debugPrint('res: $res');
       isSuccess = true;
     } on DioException catch (e) {
