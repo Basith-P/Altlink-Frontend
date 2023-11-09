@@ -1,3 +1,4 @@
+import 'package:altlink/core/config/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 const kSpacingXxs = 4.0;
@@ -25,7 +26,7 @@ const kBorderRadiusMd = BorderRadius.all(Radius.circular(kBorderRadiusMdVal));
 const kBorderRadiusLg = BorderRadius.all(Radius.circular(kBorderRadiusLgVal));
 const kBorderRadiusXl = BorderRadius.all(Radius.circular(kBorderRadiusXlVal));
 
-const kTextFieldDecoration = InputDecoration(
+const kTextFieldDecorationDark = InputDecoration(
   // labelStyle: TextStyle(color: AppColors.darkGrey),
   contentPadding: EdgeInsets.symmetric(
     horizontal: kSpacingMd,
@@ -38,6 +39,8 @@ const kTextFieldDecoration = InputDecoration(
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: kBorderRadiusSm,
-    // borderSide: BorderSide(color: AppColors.lightGrey, width: 1.0),
+    borderSide: BorderSide.none,
   ),
+  filled: true,
+  fillColor: AppColors.dark,
 );

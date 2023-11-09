@@ -6,6 +6,7 @@ import 'package:altlink/core/features/posts/pages/create_post_page.dart';
 import 'package:altlink/core/features/posts/providers.dart';
 import 'package:altlink/core/utils/functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:timeago/timeago.dart' as timeago;
@@ -54,11 +55,11 @@ class PostPage extends ConsumerWidget {
               actions: [
                 IconButton(
                   onPressed: () => push(CreatePostPage.routeName, args: post),
-                  icon: const Icon(Icons.edit_rounded),
+                  icon: const Icon(FluentIcons.edit_24_regular),
                 ),
                 IconButton(
                   onPressed: deletePost,
-                  icon: const Icon(Icons.delete_rounded),
+                  icon: const Icon(FluentIcons.delete_24_regular),
                 )
               ],
             ),

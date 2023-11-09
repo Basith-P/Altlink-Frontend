@@ -38,3 +38,11 @@ String getPostTime(DateTime dateTime) {
     return DateFormat.jm().format(dateTime);
   }
 }
+
+Widget removeTextFieldCounter(
+  _, {
+  required currentLength,
+  maxLength,
+  required isFocused,
+}) =>
+    const SizedBox.shrink();
