@@ -51,30 +51,33 @@ class _FeedState extends ConsumerState<Feed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PagedListView.separated(
-        padding: kPaddingMd,
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Post>(
-          itemBuilder: (_, post, __) => Card(
-            clipBehavior: Clip.antiAlias,
-            child: InkWell(
-              onTap: () => push(PostPage.routeName, args: post.id),
-              child: Column(
-                children: [
-                  Text(post.title),
-                  Text(post.content),
-                  Image.network(
-                    'https://media.istockphoto.com/id/1470130937/photo/young-plants-growing-in-a-crack-on-a-concrete-footpath-conquering-adversity-concept.webp?b=1&s=170667a&w=0&k=20&c=IRaA17rmaWOJkmjU_KD29jZo4E6ZtG0niRpIXQN17fc=',
-                    fit: BoxFit.cover,
-                    height: 200,
-                    width: double.infinity,
-                  ),
-                ],
+      body: RefreshIndicator(
+        onRefresh: () => Future.sync(() => _pagingController.refresh()),
+        child: PagedListView.separated(
+          padding: kPaddingMd,
+          pagingController: _pagingController,
+          builderDelegate: PagedChildBuilderDelegate<Post>(
+            itemBuilder: (_, post, __) => Card(
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: () => push(PostPage.routeName, args: post.id),
+                child: Column(
+                  children: [
+                    Text(post.title),
+                    Text(post.content),
+                    Image.network(
+                      'https://media.istockphoto.com/id/1470130937/photo/young-plants-growing-in-a-crack-on-a-concrete-footpath-conquering-adversity-concept.webp?b=1&s=170667a&w=0&k=20&c=IRaA17rmaWOJkmjU_KD29jZo4E6ZtG0niRpIXQN17fc=',
+                      fit: BoxFit.cover,
+                      height: 200,
+                      width: double.infinity,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
+          separatorBuilder: (context, index) => gapH12,
         ),
-        separatorBuilder: (context, index) => gapH12,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => push(CreatePostPage.routeName),

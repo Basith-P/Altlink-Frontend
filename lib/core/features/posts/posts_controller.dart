@@ -22,7 +22,10 @@ class PostsController extends StateNotifier<bool> {
     try {
       final res = await _dio.get(
         Endpoints.posts,
-        queryParameters: {Strings.page: currentPage, Strings.perPage: perPage},
+        queryParameters: {
+          Strings.page: currentPage,
+          Strings.perPage: perPage,
+        },
       );
       final posts = res.data[Strings.posts] as List<dynamic>;
       return posts.map((e) => Post.fromJson(e)).toList();
