@@ -35,10 +35,10 @@ const kTextFieldDecorationDark = InputDecoration(
   // prefixIconColor: AppColors.grey,
   // hintStyle: TextStyle(color: AppColors.grey, fontWeight: FontWeight.normal),
   border: OutlineInputBorder(
-    borderRadius: kBorderRadiusSm,
+    borderRadius: kBorderRadiusMd,
   ),
   enabledBorder: OutlineInputBorder(
-    borderRadius: kBorderRadiusSm,
+    borderRadius: kBorderRadiusMd,
     borderSide: BorderSide.none,
   ),
   filled: true,

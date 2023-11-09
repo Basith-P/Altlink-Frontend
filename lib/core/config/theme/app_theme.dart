@@ -1,4 +1,5 @@
 import 'package:altlink/core/config/theme/app_colors.dart';
+import 'package:altlink/core/constants/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -23,5 +24,12 @@ class AppTheme {
           foregroundColor: AppColors.text,
           iconTheme: const IconThemeData(color: AppColors.text),
         ),
+        filledButtonTheme: FilledButtonThemeData(
+            style: FilledButton.styleFrom(
+          shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusMd),
+          visualDensity: VisualDensity.comfortable,
+          padding: kPaddingMd,
+          // foregroundColor: AppColors.text,
+        )),
       );
 }

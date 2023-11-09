@@ -6,6 +6,7 @@ import 'package:altlink/core/features/posts/models/post.dart';
 import 'package:altlink/core/features/posts/providers.dart';
 import 'package:altlink/core/features/posts/widgets/image_selector.dart';
 import 'package:altlink/core/utils/functions.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -105,7 +106,7 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
         onPressed: isLoading ? null : submit,
         child: isLoading
             ? const CircularProgressIndicator()
-            : const Icon(Icons.send_rounded),
+            : const Icon(FluentIcons.send_24_regular),
       ),
     );
   }

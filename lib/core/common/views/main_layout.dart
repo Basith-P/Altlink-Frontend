@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class MainLayout extends StatelessWidget {
   const MainLayout({super.key});
 
+  static const routeName = '/main';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
