@@ -31,5 +31,12 @@ class AppTheme {
           padding: kPaddingMd,
           // foregroundColor: AppColors.text,
         )),
+        snackBarTheme: const SnackBarThemeData(
+          // backgroundColor: AppColors.bgDark,
+          // contentTextStyle: const TextStyle(color: AppColors.text),
+          // actionTextColor: AppColors.primary,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: kBorderRadiusMd),
+        ),
       );
 }

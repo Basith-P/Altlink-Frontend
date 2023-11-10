@@ -1,9 +1,11 @@
 import 'package:altlink/core/common/views/main_layout.dart';
 import 'package:altlink/core/common/widgets/loaders.dart';
+import 'package:altlink/core/config/theme/app_colors.dart';
 import 'package:altlink/core/constants/gaps.dart';
 import 'package:altlink/core/constants/ui_constants.dart';
 import 'package:altlink/core/features/user/providers.dart';
 import 'package:altlink/core/utils/functions.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,6 +24,8 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
 
+  late ValueNotifier<bool> _isPasswordVisible;
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +33,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     _nameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _isPasswordVisible = ValueNotifier(false);
   }
 
   void submit() async {
@@ -78,10 +83,35 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                           kTextFieldDecorationDark.copyWith(hintText: 'Email'),
                     ),
                     gapH16,
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: kTextFieldDecorationDark.copyWith(
-                          hintText: 'Password'),
+                    ValueListenableBuilder(
+                      valueListenable: _isPasswordVisible,
+                      builder: (_, bool isPasswordVisible, __) {
+                        return TextFormField(
+                          controller: _passwordController,
+                          decoration: kTextFieldDecorationDark.copyWith(
+                            hintText: 'Password',
+                            suffixIcon: IconButton(
+                              onPressed: () => _isPasswordVisible.value =
+                                  !_isPasswordVisible.value,
+                              icon: Icon(
+                                isPasswordVisible
+                                    ? FluentIcons.eye_24_regular
+                                    : FluentIcons.eye_off_24_regular,
+                                color: AppColors.lightText,
+                              ),
+                            ),
+                          ),
+                          obscureText: !isPasswordVisible,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Password is required';
+                            } else if (value.length < 6) {
+                              return 'Password must be at least 6 characters';
+                            }
+                            return null;
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -104,6 +134,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _formKey.currentState?.dispose();
+    _isPasswordVisible.dispose();
     super.dispose();
   }
 }
