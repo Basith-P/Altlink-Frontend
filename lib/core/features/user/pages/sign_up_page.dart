@@ -14,7 +14,7 @@ class LoginOrSignupPage extends ConsumerStatefulWidget {
 
   final bool isRegistering;
 
-  static const routeName = '/signup';
+  static const routeName = '/login-or-signup';
 
   @override
   ConsumerState<LoginOrSignupPage> createState() => _LoginOrSignupPageState();
@@ -32,6 +32,7 @@ class _LoginOrSignupPageState extends ConsumerState<LoginOrSignupPage> {
   @override
   void initState() {
     super.initState();
+
     _formKey = GlobalKey<FormState>();
     _nameController = TextEditingController();
     _emailController = TextEditingController();

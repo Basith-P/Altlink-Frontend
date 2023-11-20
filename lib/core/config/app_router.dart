@@ -1,4 +1,5 @@
 import 'package:altlink/core/common/views/main_layout.dart';
+import 'package:altlink/core/common/views/splash_page.dart';
 import 'package:altlink/core/features/posts/models/post.dart';
 import 'package:altlink/core/features/posts/pages/create_post_page.dart';
 import 'package:altlink/core/features/posts/pages/post_page.dart';
@@ -11,7 +12,7 @@ class AppRouter {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => const LoginOrSignupPage());
+        return MaterialPageRoute(builder: (_) => const SplashPage());
       case LoginOrSignupPage.routeName:
         return MaterialPageRoute(builder: (_) => const LoginOrSignupPage());
       case MainLayout.routeName:
