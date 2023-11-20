@@ -11,9 +11,9 @@ class AppRouter {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => const SignupPage());
-      case SignupPage.routeName:
-        return MaterialPageRoute(builder: (_) => const SignupPage());
+        return MaterialPageRoute(builder: (_) => const LoginOrSignupPage());
+      case LoginOrSignupPage.routeName:
+        return MaterialPageRoute(builder: (_) => const LoginOrSignupPage());
       case MainLayout.routeName:
         return MaterialPageRoute(builder: (_) => const MainLayout());
       case CreatePostPage.routeName:

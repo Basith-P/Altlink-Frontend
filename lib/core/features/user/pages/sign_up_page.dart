@@ -9,22 +9,25 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignupPage extends ConsumerStatefulWidget {
-  const SignupPage({super.key});
+class LoginOrSignupPage extends ConsumerStatefulWidget {
+  const LoginOrSignupPage({super.key, this.isRegistering = false});
+
+  final bool isRegistering;
 
   static const routeName = '/signup';
 
   @override
-  ConsumerState<SignupPage> createState() => _SignupPageState();
+  ConsumerState<LoginOrSignupPage> createState() => _LoginOrSignupPageState();
 }
 
-class _SignupPageState extends ConsumerState<SignupPage> {
+class _LoginOrSignupPageState extends ConsumerState<LoginOrSignupPage> {
   late GlobalKey<FormState> _formKey;
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
 
   late ValueNotifier<bool> _isPasswordVisible;
+  late bool _isRegistering;
 
   @override
   void initState() {
@@ -34,6 +37,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _isPasswordVisible = ValueNotifier(false);
+    _isRegistering = widget.isRegistering;
   }
 
   void submit() async {
@@ -63,7 +67,8 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Create your\nAccount',
+                // 'Create your\nAccount',
+                '${_isRegistering ? 'Create ' : 'Log in to '}your \nAccount',
                 style: textTheme.displaySmall,
               ),
               gapH36,
@@ -71,12 +76,14 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: kTextFieldDecorationDark.copyWith(
-                          hintText: 'Full Name'),
-                    ),
-                    gapH16,
+                    if (_isRegistering) ...[
+                      TextFormField(
+                        controller: _nameController,
+                        decoration: kTextFieldDecorationDark.copyWith(
+                            hintText: 'Full Name'),
+                      ),
+                      gapH16,
+                    ],
                     TextFormField(
                       controller: _emailController,
                       decoration:
@@ -119,8 +126,33 @@ class _SignupPageState extends ConsumerState<SignupPage> {
               gapH16,
               FilledButton(
                 onPressed: isLoading ? () {} : submit,
-                child: isLoading ? loaderOnButton : const Text('Sign Up'),
+                child: isLoading
+                    ? loaderOnButton
+                    : Text(_isRegistering ? 'Sign Up' : 'Log In'),
               ),
+              gapH16,
+              Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Text(
+                    _isRegistering
+                        ? 'Already have an account? '
+                        : 'Don\'t have an account? ',
+                    style: textTheme.bodySmall,
+                  ),
+                  TextButton(
+                    onPressed: () =>
+                        setState(() => _isRegistering = !_isRegistering),
+                    child: Text(
+                      _isRegistering ? 'Log In' : 'Sign Up',
+                      style: textTheme.labelMedium!.copyWith(
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
