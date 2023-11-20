@@ -15,7 +15,13 @@ class MainLayout extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.logout_rounded))
+          IconButton(
+              onPressed: () async {
+                // final userbox = Hive.box(Strings.userBox);
+                // final token = userbox.get(Strings.user);
+                // debugPrint(token.toString());
+              },
+              icon: const Icon(Icons.logout_rounded))
         ],
       ),
       body: const Feed(),

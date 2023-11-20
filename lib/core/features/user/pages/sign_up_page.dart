@@ -46,10 +46,11 @@ class _LoginOrSignupPageState extends ConsumerState<LoginOrSignupPage> {
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      final isSuccess = await ref
-          .read(authControllerProvider.notifier)
-          .signUp(name, email, password);
-      if (isSuccess) push(MainLayout.routeName);
+      final authNotifier = ref.read(authControllerProvider.notifier);
+      final isSuccess = _isRegistering
+          ? await authNotifier.signUp(name, email, password)
+          : await authNotifier.signIn(email, password);
+      if (isSuccess) replace(MainLayout.routeName);
     }
   }
 

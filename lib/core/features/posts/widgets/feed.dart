@@ -54,7 +54,7 @@ class _FeedState extends ConsumerState<Feed> {
       body: RefreshIndicator(
         onRefresh: () => Future.sync(() => _pagingController.refresh()),
         child: PagedListView.separated(
-          padding: kPaddingMd,
+          padding: kPaddingSm,
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<Post>(
             itemBuilder: (_, post, __) => FeedPost(post: post),
